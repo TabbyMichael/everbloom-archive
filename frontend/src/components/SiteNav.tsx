@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun, Globe } from "lucide-react";
+import { Menu, X, Moon, Sun, Globe, Images } from "lucide-react";
 import { useLocale, useTheme } from "@/contexts/AppProviders";
 import { useTranslations } from "@/hooks/useTranslations";
+import { Link, useLocation } from "react-router-dom";
 
 const SiteNav = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -10,6 +11,7 @@ const SiteNav = () => {
   const { locale, setLocale } = useLocale();
   const { theme, toggleTheme } = useTheme();
   const t = useTranslations();
+  const location = useLocation();
 
   const links = [
     { label: t.nav.story, href: "#story" },
@@ -17,6 +19,19 @@ const SiteNav = () => {
     { label: t.nav.tributes, href: "#tributes" },
     { label: t.nav.lightCandle, href: "#candle" },
   ];
+
+  const handleGalleryClick = () => {
+    if (location.pathname === "/") {
+      // On homepage, scroll to gallery section
+      const galleryElement = document.getElementById("gallery");
+      if (galleryElement) {
+        galleryElement.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // On other pages, navigate to gallery page
+      window.location.href = "/gallery";
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -33,9 +48,9 @@ const SiteNav = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#" className="font-serif text-lg text-foreground">
-          Mary Wangui
-        </a>
+        <Link to="/" className="font-serif text-lg text-foreground">
+          In Loving Memory
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-6">
@@ -48,6 +63,15 @@ const SiteNav = () => {
               {link.label}
             </a>
           ))}
+          
+          {/* Gallery Button */}
+          <button
+            onClick={handleGalleryClick}
+            className="font-sans text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+          >
+            <Images className="w-4 h-4" />
+            Gallery
+          </button>
 
           <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
             {/* Theme toggle */}
@@ -113,6 +137,18 @@ const SiteNav = () => {
                   {link.label}
                 </a>
               ))}
+              
+              {/* Gallery Button */}
+              <button
+                onClick={() => {
+                  handleGalleryClick();
+                  setMobileOpen(false);
+                }}
+                className="font-sans text-sm text-muted-foreground hover:text-foreground py-2 flex items-center gap-2 text-left"
+              >
+                <Images className="w-4 h-4" />
+                Gallery
+              </button>
             </div>
           </motion.div>
         )}
