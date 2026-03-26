@@ -50,6 +50,10 @@
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Inter', system-ui, sans-serif;
 
+    /* Dark candle section */
+    --candle-bg: 220 20% 14%;
+    --candle-fg: 40 33% 96%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
