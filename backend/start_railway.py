@@ -9,8 +9,11 @@ from complete_app import app, socketio, init_auth_db
 # Initialize database
 init_auth_db()
 
-# Get port from Railway
+# Get port from Railway (Railway sets PORT environment variable)
 port = int(os.environ.get("PORT", 8000))
+
+# Change to the correct working directory
+os.chdir("/app")
 
 if __name__ == "__main__":
     print(f"Starting Everbloom Archive on port {port}")
