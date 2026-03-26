@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: everbloom-backend
+    env: python
+    plan: free
+    repo: https://github.com/TabbyMichael/everbloom-archive
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python start_railway.py
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.9
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: SECRET_KEY
+        sync: false
