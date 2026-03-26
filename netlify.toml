@@ -1,13 +1,13 @@
 [build]
-  publish = "dist"
-  command = "npm run build"
+  publish = "frontend/dist"
+  command = "cd frontend && npm ci && npm run build"
 
 [build.environment]
-  VITE_API_URL = "https://your-api-url.com"
+  VITE_API_URL = "https://everbloom-archive.onrender.com"
 
 [context.production]
-  command = "npm run build"
-  publish = "dist"
+  command = "cd frontend && npm ci && npm run build"
+  publish = "frontend/dist"
 
 [[redirects]]
   from = "/api/*"
