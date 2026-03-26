@@ -50,6 +50,10 @@
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Inter', system-ui, sans-serif;
 
+    /* Dark candle section */
+    --candle-bg: 220 20% 14%;
+    --candle-fg: 40 33% 96%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -58,6 +62,47 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 40 20% 92%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 40 20% 92%;
+
+    --popover: 220 18% 13%;
+    --popover-foreground: 40 20% 92%;
+
+    --primary: 350 40% 62%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 210 20% 25%;
+    --secondary-foreground: 40 20% 92%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 40 10% 60%;
+
+    --accent: 350 20% 22%;
+    --accent-foreground: 350 40% 75%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 350 40% 62%;
+
+    --rose: 350 40% 62%;
+    --rose-light: 350 25% 25%;
+    --dusty-blue: 210 25% 50%;
+    --dusty-blue-light: 210 20% 20%;
+    --ivory: 220 20% 10%;
+    --ivory-warm: 220 15% 14%;
+    --gold-soft: 42 40% 45%;
+
+    --candle-bg: 220 20% 8%;
+    --candle-fg: 40 20% 90%;
   }
 }
 

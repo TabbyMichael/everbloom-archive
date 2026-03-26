@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-
-const links = [
-  { label: "Story", href: "#story" },
-  { label: "Timeline", href: "#timeline" },
-  { label: "Tributes", href: "#tributes" },
-  { label: "Light a Candle", href: "#candle" },
-];
+import { Menu, X, Moon, Sun, Globe } from "lucide-react";
+import { useLocale, useTheme } from "@/contexts/AppProviders";
+import { useTranslations } from "@/hooks/useTranslations";
 
 const SiteNav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { locale, setLocale } = useLocale();
+  const { theme, toggleTheme } = useTheme();
+  const t = useTranslations();
+
+  const links = [
+    { label: t.nav.story, href: "#story" },
+    { label: t.nav.timeline, href: "#timeline" },
+    { label: t.nav.tributes, href: "#tributes" },
+    { label: t.nav.lightCandle, href: "#candle" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -33,7 +38,7 @@ const SiteNav = () => {
         </a>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {links.map((link) => (
             <a
               key={link.href}
@@ -43,15 +48,49 @@ const SiteNav = () => {
               {link.label}
             </a>
           ))}
+
+          <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            {/* Language toggle */}
+            <button
+              onClick={() => setLocale(locale === "en" ? "sw" : "en")}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              {locale === "en" ? "SW" : "EN"}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-foreground"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile controls */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={() => setLocale(locale === "en" ? "sw" : "en")}
+            className="px-2 py-1 rounded-full text-xs font-sans font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {locale === "en" ? "SW" : "EN"}
+          </button>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="text-foreground"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
