@@ -12,11 +12,19 @@ import os
 from datetime import datetime, timedelta
 from contextlib import contextmanager
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configuration
-DATABASE_URL = "everbloom.db"
-UPLOAD_DIR = "uploads"
-ALLOWED_ORIGINS = ["http://localhost:8080", "http://172.24.208.1:8080"]
+DATABASE_URL = os.getenv("DATABASE_URL", "everbloom.db")
+UPLOAD_DIR = os.getenv("UPLOAD_DIR", "uploads")
+PORT = int(os.getenv("PORT", 8000))
+
+# Get allowed origins from environment or use defaults
+ALLOWED_ORIGINS_STR = os.getenv("ALLOWED_ORIGINS", "http://localhost:8080,http://172.24.208.1:8080")
+ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",")]
 
 # Create uploads directory
 os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -667,4 +675,4 @@ def serve_file(filename):
     return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=8000, debug=True)
+    socketio.run(app, host="0.0.0.0", port=PORT, debug=False)
