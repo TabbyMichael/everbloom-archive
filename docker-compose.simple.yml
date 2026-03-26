@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.simple
+    container_name: everbloom-backend-docker
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./everbloom.db
+      - SECRET_KEY=everbloom-secret-key-change-in-production-2024
+      - ALLOWED_ORIGINS=["http://localhost:8080", "http://172.24.208.1:8080"]
+      - DEBUG=True
+    volumes:
+      - ./backend:/app
+      - uploads:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: everbloom-frontend-docker
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  uploads:

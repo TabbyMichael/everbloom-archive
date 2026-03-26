@@ -1,8 +1,9 @@
 import SiteNav from "@/components/SiteNav";
 import HeroSection from "@/components/HeroSection";
 import BiographySection from "@/components/BiographySection";
-import LifeTimeline from "@/components/LifeTimeline";
-import TributeWall from "@/components/TributeWall";
+import Timeline from "@/components/Timeline";
+import TributesWall from "@/components/TributesWall";
+import GallerySection from "@/components/GallerySection";
 import DigitalCandle from "@/components/DigitalCandle";
 import Footer from "@/components/Footer";
 
@@ -12,8 +13,9 @@ const Index = () => {
       <SiteNav />
       <HeroSection />
       <BiographySection />
-      <LifeTimeline />
-      <TributeWall />
+      <Timeline />
+      <TributesWall />
+      <GallerySection />
       <DigitalCandle />
       <Footer />
     </div>
